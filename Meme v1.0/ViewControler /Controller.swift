@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension ViewController {
+extension EditMemeViewController {
     
     //MARK: Methods
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -45,7 +45,9 @@ extension ViewController {
     // Method to shift the view
     @objc func keyboardWillShow(_ notification:Notification) {
 
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        if bottomTextField.isFirstResponder{
+            view.frame.origin.y = -getKeyboardHeight(notification)
+        }
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
@@ -61,6 +63,14 @@ extension ViewController {
         return keyboardSize.cgRectValue.height
     }
     
+    
+    // Preparing default for TextFields
+    func prepareTextField(textField: UITextField, defaultText: String) {
+        
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.placeholder = defaultText
+        
+    }
     
     
 }

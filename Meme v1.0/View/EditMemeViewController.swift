@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //MARK: Properties
     
@@ -25,7 +25,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     
-    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    
     
     @IBAction func shareButton(_ sender: UIButton) {
         
@@ -34,35 +35,51 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(controller, animated: true) {
             self.save(memedImage: memedImage)
         }
+        
+        
+        controller.completionWithItemsHandler = {(_, completed, _, _) in
+                if !completed {
+                    return
+                }
+                // Enable the share button
+                self.shareButton.isEnabled = false
+                // User completed activity
+                self.save(memedImage: memedImage)
+                controller.dismiss(animated: true, completion: nil)
+            }
+        
+        
     }
     
     
     @IBAction func cancelButton(_ sender: UIButton) {
+        imagePickerView.image = nil
+        topTextField.text = .none
+        bottomTextField.text = .none
         
+        self.shareButton.isEnabled = false
         
     }
     
     
-    @IBAction func pickAnImageAlbum(_ sender: Any) {
+    @IBAction func pickAnImageAlbum(_ sender: UIButton) {
        // Picking an Image from the photoAlubm
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
+        
+        
+        switch sender.tag {
+        case 1:
+            imagePicker.sourceType = .camera
+        case 2:
+            imagePicker.sourceType = .photoLibrary
+        default:
+            imagePicker.sourceType = .photoLibrary
+        }
         present(imagePicker, animated: true) {
-            self.enableShareButton()
+            self.shareButton.isEnabled = true
         }
         
-    }
-    
-    @IBAction func pickAnImageCamera(_ sender: Any) {
-        
-        // Picking an Image from the camera
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true) {
-            self.enableShareButton()
-        }
     }
     
     //MARK: - Life Cycle
@@ -72,27 +89,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Do any additional setup after loading the view.
         self.topTextField.delegate = topTextFieldDelegate
         self.bottomTextField.delegate = topTextFieldDelegate
+        self.shareButton.isEnabled = false
         
-        enableShareButton()
+        prepareTextField(textField: topTextField, defaultText:"TOP")
+        prepareTextField(textField: bottomTextField, defaultText:"BOTTOM")
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        // Setting the textFields to have correct font, size and other attributes
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        
+       
         // Disabling camera button if camera is not available
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-       
+        
         
         super.viewWillAppear(animated)
         // Subscribing to keyboard notifications
         subscribeToKeyboardNotifications()
         subscribeToKeyboardDisappearingNotifications()
+   
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -107,7 +122,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func save(memedImage: UIImage) {
             // Create the meme
-        let meme = Meme(topCaption: topTextField.text!, bottomCaption: bottomTextField.text!, originalImage: imagePickerView.image!, editedImage: memedImage)
+        if imagePickerView.image != nil {
+            _ = Meme(topCaption: topTextField.text!, bottomCaption: bottomTextField.text!, originalImage: imagePickerView.image!, editedImage: memedImage)
+        }
+        
     }
     
     
@@ -129,16 +147,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         return memedImage
     }
+  
     
-    func enableShareButton() {
-        
-        if imagePickerView.image != nil {
-            shareButton.isEnabled = true
-        } else {
-            shareButton.isEnabled = false
-        }
-        
-    }
+    
     
 }
 
