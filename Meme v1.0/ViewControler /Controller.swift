@@ -65,11 +65,11 @@ extension EditMemeViewController {
     
     
     // Preparing default for TextFields
-    func prepareTextField(textField: UITextField, defaultText: String) {
+    func prepareTextField(textField: UITextField, defaultText: String, delegate: UITextFieldDelegate) {
         
         textField.defaultTextAttributes = memeTextAttributes
         textField.placeholder = defaultText
-        
+        textField.delegate = delegate
     }
     
     

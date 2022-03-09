@@ -54,13 +54,13 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="k1c-Id-pZa">
-                                <rect key="frame" x="20" y="117" width="375" height="38"/>
+                            <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="k1c-Id-pZa">
+                                <rect key="frame" x="20" y="117" width="374" height="38"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="BOTTOM" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="Cp5-0b-1Oj">
+                            <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="BOTTOM" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Cp5-0b-1Oj">
                                 <rect key="frame" x="20" y="708" width="374" height="38"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
@@ -75,17 +75,21 @@
                             <constraint firstItem="k1c-Id-pZa" firstAttribute="top" secondItem="gOj-89-hee" secondAttribute="bottom" constant="23" id="KQL-U1-MBW"/>
                             <constraint firstItem="2zQ-hU-JvF" firstAttribute="top" secondItem="Cp5-0b-1Oj" secondAttribute="bottom" constant="72" id="Lhh-Vd-YEV"/>
                             <constraint firstItem="gOj-89-hee" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Lle-G1-H3j"/>
+                            <constraint firstItem="Cp5-0b-1Oj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="MuO-Vo-bMb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Cp5-0b-1Oj" secondAttribute="trailing" constant="20" id="NRx-oi-4ff"/>
                             <constraint firstItem="Cp5-0b-1Oj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Og0-E0-mks"/>
                             <constraint firstItem="Pw0-Pj-xnr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="S21-Be-8mO"/>
                             <constraint firstItem="gOj-89-hee" firstAttribute="leading" secondItem="Pw0-Pj-xnr" secondAttribute="leading" id="T2O-Uz-lYu"/>
                             <constraint firstItem="Pw0-Pj-xnr" firstAttribute="top" secondItem="gOj-89-hee" secondAttribute="bottom" constant="-6" id="Tmy-VF-XxK"/>
                             <constraint firstItem="2zQ-hU-JvF" firstAttribute="top" secondItem="Pw0-Pj-xnr" secondAttribute="bottom" id="Zco-KH-DJ1"/>
                             <constraint firstItem="Pw0-Pj-xnr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dkV-bB-dm9"/>
+                            <constraint firstItem="k1c-Id-pZa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="e3n-BP-bdY"/>
                             <constraint firstItem="2zQ-hU-JvF" firstAttribute="leading" secondItem="Pw0-Pj-xnr" secondAttribute="leading" id="hrH-eO-mPf"/>
                             <constraint firstItem="k1c-Id-pZa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jiE-fa-kZv"/>
                             <constraint firstItem="2zQ-hU-JvF" firstAttribute="top" secondItem="Pw0-Pj-xnr" secondAttribute="bottom" id="ob0-zS-Yry"/>
                             <constraint firstItem="gOj-89-hee" firstAttribute="trailing" secondItem="Pw0-Pj-xnr" secondAttribute="trailing" id="ohC-vt-Vph"/>
                             <constraint firstItem="2zQ-hU-JvF" firstAttribute="trailing" secondItem="Pw0-Pj-xnr" secondAttribute="trailing" id="puc-lI-XkX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="k1c-Id-pZa" secondAttribute="trailing" constant="20" id="rL2-dN-Dca"/>
                             <constraint firstItem="2zQ-hU-JvF" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="xBk-L0-1wB"/>
                         </constraints>
                     </view>

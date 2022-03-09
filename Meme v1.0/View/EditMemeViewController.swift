@@ -57,7 +57,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         topTextField.text = .none
         bottomTextField.text = .none
         
-        self.shareButton.isEnabled = false
+        shareButton.isEnabled = false
         
     }
     
@@ -87,12 +87,10 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.topTextField.delegate = topTextFieldDelegate
-        self.bottomTextField.delegate = topTextFieldDelegate
         self.shareButton.isEnabled = false
         
-        prepareTextField(textField: topTextField, defaultText:"TOP")
-        prepareTextField(textField: bottomTextField, defaultText:"BOTTOM")
+        prepareTextField(textField: topTextField, defaultText:"TOP", delegate: topTextFieldDelegate)
+        prepareTextField(textField: bottomTextField, defaultText:"BOTTOM", delegate: topTextFieldDelegate)
         
     }
     
