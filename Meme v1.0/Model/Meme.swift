@@ -14,6 +14,5 @@ struct Meme {
     let bottomCaption: String
     let originalImage: UIImage
     let editedImage: UIImage
-    
-    
+     
 }

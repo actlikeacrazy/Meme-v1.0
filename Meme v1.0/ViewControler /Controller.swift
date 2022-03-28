@@ -70,35 +70,38 @@ extension EditMemeViewController {
         textField.defaultTextAttributes = memeTextAttributes
         textField.placeholder = defaultText
         textField.delegate = delegate
+        textField.textAlignment = .center
     }
     
     
     //MARK: - Main Methods
     
     func save(memedImage: UIImage) {
-            // Create the meme
-        if imagePickerView.image != nil {
-            _ = Meme(topCaption: topTextField.text!, bottomCaption: bottomTextField.text!, originalImage: imagePickerView.image!, editedImage: memedImage)
-        }
+        
+        // Create the meme
+        let meme = Meme(topCaption: topTextField.text!, bottomCaption: bottomTextField.text!, originalImage: imagePickerView.image!, editedImage: memedImage)
+        
+        // Adding to the meme array
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
         
     }
-    
-    
+  
     func generateMemedImage() -> UIImage {
-
-        // TODO: Hide toolbar and navbar
-        navigationController?.setToolbarHidden(true, animated: true)
+        // Hiding Nav and Tool bars
+        self.navigationController?.isToolbarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
         
-
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-
-        // TODO: Show toolbar and navbar
-        navigationController?.setToolbarHidden(false, animated: true)
         
+        // Showing Nav and Tool bars
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.isNavigationBarHidden = false
         
         return memedImage
     }

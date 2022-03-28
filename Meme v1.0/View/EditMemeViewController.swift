@@ -14,8 +14,6 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     let topTextFieldDelegate = TopTextFieldDelegate()
     
     
-   
-    
     //MARK: Outlets
     @IBOutlet weak var imagePickerView: UIImageView!
     
@@ -42,13 +40,12 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
                     return
                 }
                 // Enable the share button
-                self.shareButton.isEnabled = false
+                self.shareButton.isEnabled = true
+            
                 // User completed activity
                 self.save(memedImage: memedImage)
                 controller.dismiss(animated: true, completion: nil)
             }
-        
-        
     }
     
     
@@ -58,6 +55,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         bottomTextField.text = .none
         
         shareButton.isEnabled = false
+        
         
     }
     
@@ -91,6 +89,13 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         
         prepareTextField(textField: topTextField, defaultText:"TOP", delegate: topTextFieldDelegate)
         prepareTextField(textField: bottomTextField, defaultText:"BOTTOM", delegate: topTextFieldDelegate)
+        
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.isToolbarHidden = true
+        
+        //NavBar set up
+//       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButton(_:)))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(setter: shareButton))
         
     }
     
