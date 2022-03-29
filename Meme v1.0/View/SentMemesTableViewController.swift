@@ -61,6 +61,8 @@ class SentMemesTableViewController: UITableViewController {
         self.navigationController?.pushViewController(detailController, animated: true)
     }
     
+    // MARK: Custom Methods 
+    
     @objc func presentMemeEditor() {
            
         let editorController = self.storyboard!.instantiateViewController(withIdentifier: "memeEditor") as! EditMemeViewController

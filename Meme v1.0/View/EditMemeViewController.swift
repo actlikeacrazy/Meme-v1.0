@@ -22,8 +22,74 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var bottomTextField: UITextField!
     
     @IBOutlet weak var cameraButton: UIBarButtonItem!
-        
+    
     @IBOutlet weak var myCustomToolBar: UIToolbar!
+    
+    
+    @IBAction func pickAnImageAlbum(_ sender: UIButton) {
+        // Picking an Image from the photoAlubm
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        
+        switch sender.tag {
+        case 1:
+            imagePicker.sourceType = .camera
+        case 2:
+            imagePicker.sourceType = .photoLibrary
+        default:
+            imagePicker.sourceType = .photoLibrary
+        }
+        present(imagePicker, animated: true) {
+            
+        }
+        
+    }
+    
+    //MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.isToolbarHidden = true
+        
+        
+        prepareTextField(textField: topTextField, defaultText:"TOP", delegate: topTextFieldDelegate)
+        prepareTextField(textField: bottomTextField, defaultText:"BOTTOM", delegate: topTextFieldDelegate)
+        
+        
+        //NavBar set up
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButton(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButton(_:)))
+        
+        
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        // Disabling camera button if camera is not available
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
+        
+        super.viewWillAppear(animated)
+        // Subscribing to keyboard notifications
+        subscribeToKeyboardNotifications()
+        subscribeToKeyboardDisappearingNotifications()
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        // Unsubscribing from keyboard notifications
+        unsubscribeFromKeyboardNotifications()
+    }
+    
+    
+    
+    // MARK: Custom Methods
     
     @objc func shareButton(_ sender: UIButton) {
         
@@ -60,67 +126,4 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         
     }
     
-    
-    @IBAction func pickAnImageAlbum(_ sender: UIButton) {
-       // Picking an Image from the photoAlubm
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        
-        
-        switch sender.tag {
-        case 1:
-            imagePicker.sourceType = .camera
-        case 2:
-            imagePicker.sourceType = .photoLibrary
-        default:
-            imagePicker.sourceType = .photoLibrary
-        }
-        present(imagePicker, animated: true) {
-           
-        }
-        
-    }
-    
-    //MARK: - Life Cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        self.tabBarController?.tabBar.isHidden = true
-        self.navigationController?.isToolbarHidden = true
-        
-        
-        prepareTextField(textField: topTextField, defaultText:"TOP", delegate: topTextFieldDelegate)
-        prepareTextField(textField: bottomTextField, defaultText:"BOTTOM", delegate: topTextFieldDelegate)
-        
-        
-        //NavBar set up
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButton(_:)))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButton(_:)))
-        
-        
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-       
-        // Disabling camera button if camera is not available
-       cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        
-        
-        super.viewWillAppear(animated)
-        // Subscribing to keyboard notifications
-        subscribeToKeyboardNotifications()
-        subscribeToKeyboardDisappearingNotifications()
-   
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-
-        super.viewWillDisappear(animated)
-        // Unsubscribing from keyboard notifications
-        unsubscribeFromKeyboardNotifications()
-    }
- 
 }
-

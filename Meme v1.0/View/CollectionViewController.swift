@@ -38,14 +38,10 @@ class CollectionViewController: UICollectionViewController {
         
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Setting up right Bar Button Item
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentMemeEditor))
-        
-        
     }
     
     // MARK: Collection View Stabs
@@ -73,11 +69,14 @@ class CollectionViewController: UICollectionViewController {
         
     }
     
- @objc func presentMemeEditor() {
+    // MARK: Custom Methods
+    
+    
+    @objc func presentMemeEditor() {
         
-     let editorController = self.storyboard!.instantiateViewController(withIdentifier: "memeEditor") as! EditMemeViewController
-     self.navigationController!.pushViewController(editorController, animated: true)
-   
+        let editorController = self.storyboard!.instantiateViewController(withIdentifier: "memeEditor") as! EditMemeViewController
+        self.navigationController!.pushViewController(editorController, animated: true)
+        
         
     }
     
