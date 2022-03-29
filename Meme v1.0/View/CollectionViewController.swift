@@ -22,6 +22,22 @@ class CollectionViewController: UICollectionViewController {
     
     
     // MARK: Life Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        self.collectionView.reloadData()
+        
+        self.tabBarController?.tabBar.isHidden = false
+        //Collection View Flow properties
+        
+        let spacing: CGFloat = 3.0
+        let dimension = (view.frame.size.width - (2 * spacing)) / 3.0
+        
+        flowLayout.minimumInteritemSpacing = spacing
+        flowLayout.minimumLineSpacing = spacing
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
+        
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,14 +45,7 @@ class CollectionViewController: UICollectionViewController {
         // Setting up right Bar Button Item
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentMemeEditor))
         
-        //Collection View Flow properties
         
-        let spacing: CGFloat = 30
-        let dimension = (view.frame.size.width - (2 * spacing)) / 8.0
-        
-        flowLayout.minimumInteritemSpacing = spacing
-        flowLayout.minimumLineSpacing = spacing
-        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
     
     // MARK: Collection View Stabs
@@ -68,12 +77,11 @@ class CollectionViewController: UICollectionViewController {
         
      let editorController = self.storyboard!.instantiateViewController(withIdentifier: "memeEditor") as! EditMemeViewController
      self.navigationController!.pushViewController(editorController, animated: true)
-     navigationController?.isNavigationBarHidden = true
-     navigationController?.isToolbarHidden = true
+   
         
     }
     
 }
 
 
-//presentMemeEditor(storyboard: self.storyboard!, navigationController: self.navigationController!)
+

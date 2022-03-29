@@ -21,6 +21,11 @@ class SentMemesTableViewController: UITableViewController {
     
     // MARK: Lifecycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,6 +46,7 @@ class SentMemesTableViewController: UITableViewController {
         let meme = self.memes[indexPath.row]
         
         cell.textLabel?.text = meme.topCaption
+        cell.detailTextLabel?.text = meme.bottomCaption
         cell.imageView?.image = meme.editedImage
         
         

@@ -22,40 +22,41 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var bottomTextField: UITextField!
     
     @IBOutlet weak var cameraButton: UIBarButtonItem!
+        
+    @IBOutlet weak var myCustomToolBar: UIToolbar!
     
-    @IBOutlet weak var shareButton: UIBarButtonItem!
-    
-    
-    @IBAction func shareButton(_ sender: UIButton) {
+    @objc func shareButton(_ sender: UIButton) {
         
         let memedImage = generateMemedImage()
         let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         present(controller, animated: true) {
+            
+            self.myCustomToolBar.isHidden = true
+            self.myCustomToolBar.isTranslucent = true
+            self.navigationController?.isNavigationBarHidden = true
+            
             self.save(memedImage: memedImage)
         }
         
         
         controller.completionWithItemsHandler = {(_, completed, _, _) in
-                if !completed {
-                    return
-                }
-                // Enable the share button
-                self.shareButton.isEnabled = true
-            
-                // User completed activity
-                self.save(memedImage: memedImage)
-                controller.dismiss(animated: true, completion: nil)
+            if !completed {
+                return
             }
+            // User completed activity
+            self.myCustomToolBar.isHidden = false
+            self.navigationController?.isNavigationBarHidden = false
+            controller.dismiss(animated: true, completion: nil)
+        }
     }
     
     
-    @IBAction func cancelButton(_ sender: UIButton) {
+    @objc func cancelButton(_ sender: UIButton) {
         imagePickerView.image = nil
         topTextField.text = .none
         bottomTextField.text = .none
         
-        shareButton.isEnabled = false
-        
+        self.navigationController?.popToRootViewController(animated: true)
         
     }
     
@@ -75,7 +76,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
             imagePicker.sourceType = .photoLibrary
         }
         present(imagePicker, animated: true) {
-            self.shareButton.isEnabled = true
+           
         }
         
     }
@@ -85,17 +86,18 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.shareButton.isEnabled = false
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.isToolbarHidden = true
+        
         
         prepareTextField(textField: topTextField, defaultText:"TOP", delegate: topTextFieldDelegate)
         prepareTextField(textField: bottomTextField, defaultText:"BOTTOM", delegate: topTextFieldDelegate)
         
-        navigationController?.isNavigationBarHidden = true
-        navigationController?.isToolbarHidden = true
         
         //NavBar set up
-//       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButton(_:)))
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(setter: shareButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButton(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButton(_:)))
+        
         
     }
     
@@ -103,7 +105,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewWillAppear(_ animated: Bool) {
        
         // Disabling camera button if camera is not available
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+       cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
         
         super.viewWillAppear(animated)
